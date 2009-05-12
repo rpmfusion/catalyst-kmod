@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-#define buildforkernels newest
+%define buildforkernels newest
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     9.4
-Release:     2%{?dist}
+Release:     2%{?dist}.1
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue May 12 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 9.4-2.1
+- rebuild for new kernels
+
 * Wed May 6 2009 Stewart Adam <s.adam at diffingo.com> - 9.4-2
 - Remove Makefile patch and set KDIR variable instead (thanks to kwizart)
 
