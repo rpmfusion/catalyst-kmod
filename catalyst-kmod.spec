@@ -12,7 +12,7 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     10.4
+Version:     10.5
 Release:     1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
@@ -23,8 +23,8 @@ Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-dat
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-# needed for plague to make sure it builds for i586 and i686
-ExclusiveArch:  i586 i686 x86_64
+# needed for plague to make sure it builds for i686
+ExclusiveArch:  i686 x86_64
 
 # get the needed BuildRequires (in parts depending on what we build for)
 BuildRequires:  %{_bindir}/kmodtool
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu May 27 2010 Stewart Adam <s.adam at diffingo.com> - 10.5-1
+- Update to Catalyst 10.5 (internal version 8.73.2)
+
 * Sat May 1 2010 Stewart Adam <s.adam at diffingo.com> - 10.4-1
 - Update to Catalyst 10.4 (internal version 8.72.3)
 
