@@ -12,7 +12,7 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     10.4
+Version:     10.5
 Release:     1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu May 27 2010 Stewart Adam <s.adam at diffingo.com> - 10.5-1
+- Update to Catalyst 10.5 (internal version 8.73.2)
+
 * Thu Apr 29 2010 Stewart Adam <s.adam at diffingo.com> - 10.4-1
 - Update to Catalyst 10.4 (internal version 8.72.3)
 
