@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     10.5
-Release:     1%{?dist}.2
+Release:     1%{?dist}.3
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 07 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 10.5-1.3
+- rebuild for new kernel
+
 * Fri Jun 18 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 10.5-1.2
 - rebuild for new kernel
 
