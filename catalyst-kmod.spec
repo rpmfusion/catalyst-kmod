@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-%define buildforkernels newest
+#define buildforkernels newest
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     10.11
-Release:     1%{?dist}.2
+Version:     10.12
+Release:     1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Dec 26 2010 Stewart Adam <s.adam at diffingo.com> - 10.12-1
+- Update to Catalyst 10.12 (internal version 8.80.1)
+
 * Fri Dec 17 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 10.11-1.2
 - rebuild for updated kernel
 
