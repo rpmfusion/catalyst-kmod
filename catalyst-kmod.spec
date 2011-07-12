@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     11.6
-Release:     1%{?dist}
+Release:     1%{?dist}.1
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 12 2011 Nicolas Chauvet <kwizart@gmail.com> - 11.6-1.1
+- Rebuild for updated kernel
+
 * Sat Jun 18 2011 Stewart Adam <s.adam at diffingo.com> 11.6-1
 * Update to Catalyst 11.6 (internal version 8.86.1)
 
