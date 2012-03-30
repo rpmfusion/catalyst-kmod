@@ -1,0 +1,20 @@
+diff -purN catalyst-kmod-data-12.2/common/lib/modules/fglrx/build_mod/firegl_public.c catalyst-kmod-data-12.2-fixed/common/lib/modules/fglrx/build_mod/firegl_public.c
+--- lib/modules/fglrx/build_mod/firegl_public.c.i387	2012-02-29 21:34:52.000000000 +0100
++++ lib/modules/fglrx/build_mod/firegl_public.c	2012-03-13 12:47:23.500889722 +0100
+@@ -5799,10 +5799,16 @@ void ATI_API_CALL KCL_fpu_begin(void)
+ #ifdef CONFIG_X86_64
+     kernel_fpu_begin();
+ #else
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,8)
++    preempt_disable();
++    if (__thread_has_fpu(current))
++        __save_init_fpu(current);
++#else
+     struct thread_info *cur_task = current_thread_info();
+     preempt_disable();
+     if (cur_task->status & TS_USEDFPU)
+         __save_init_fpu(cur_task->task);
++#endif
+     else
+         clts();
+ #endif
