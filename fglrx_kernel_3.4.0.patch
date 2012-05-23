@@ -10,3 +10,15 @@
  
  #include "firegl_public.h"
  #include "kcl_osconfig.h"
+@@ -4181,7 +4184,11 @@ static int kasInitExecutionLevels(unsigned long level_init)
+ {
+     unsigned int p;
+     KCL_DEBUG5(FN_FIREGL_KAS, "%d\n", level_init);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
++    for_each_cpu_mask(p, cpu_possible_mask)
++#else
+     for_each_cpu_mask(p, cpu_possible_map)
++#endif
+     {
+         KCL_DEBUG1(FN_FIREGL_KAS,"Setting initial execution level for CPU # %d\n", p);
+         preempt_disable();
