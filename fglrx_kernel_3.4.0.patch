@@ -15,10 +15,23 @@
      unsigned int p;
      KCL_DEBUG5(FN_FIREGL_KAS, "%d\n", level_init);
 +#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
-+    for_each_cpu_mask(p, cpu_possible_mask)
++    for_each_possible_cpu(p)
 +#else
      for_each_cpu_mask(p, cpu_possible_map)
 +#endif
      {
          KCL_DEBUG1(FN_FIREGL_KAS,"Setting initial execution level for CPU # %d\n", p);
          preempt_disable();
+--- lib/modules/fglrx/build_mod/kcl_ioctl.c
++++ lib/modules/fglrx/build_mod/kcl_ioctl.c
+@@ -217,6 +217,10 @@
+  *  \param size [in] Number of bytes to allocate
+  *  \return Pointer to allocated memory
+  */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
++DEFINE_PER_CPU(unsigned long, old_rsp);
++#endif
++
+ void* ATI_API_CALL KCL_IOCTL_AllocUserSpace32(long size)
+ {
+     void __user *ret = COMPAT_ALLOC_USER_SPACE(size);
