@@ -101,6 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Jun 24 2012 leigh scott <leigh123linux@googlemail.com> - 12.6-0.1
 - Update to Catalyst 12.6 beta (internal version 8.98)
+- patch for newer kernels (3.4.0)
 
 * Thu Jun 21 2012 Nicolas Chauvet <kwizart@gmail.com> - 11.11-1.15
 - Rebuilt for updated kernel
