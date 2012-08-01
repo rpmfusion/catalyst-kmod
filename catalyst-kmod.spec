@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     12.6
-Release:     2%{?dist}
+Release:     3%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -23,7 +23,7 @@ Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-dat
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 Patch0:      compat_alloc-Makefile.patch
 Patch1:      fglrx_kernel_3.4.0.patch
-Patch2:      amd-3.5.0-missing_do_mmap.patch
+Patch2:      3.5-do_mmap.patch
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # needed for plague to make sure it builds for i686
@@ -81,7 +81,7 @@ done
 %build
 for kernel_version in %{?kernel_versions}; do
     pushd _kmod_build_${kernel_version%%___*}/lib/modules/fglrx/build_mod/2.6.x
-    make CC="gcc" PAGE_ATTR_FIX=0 \
+    make V=1 CC="gcc" PAGE_ATTR_FIX=0 \
       KVER="${kernel_version%%___*}" \
       KDIR="/usr/src/kernels/${kernel_version%%___*}"
     popd
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 01 2012 Leigh Scott <leigh123linux@googlemail.com> - 12.6-3
+- redo patch to fix module load error
+
 * Wed Aug 01 2012 Leigh Scott <leigh123linux@googlemail.com> - 12.6-2
 - patched for 3.5 kernel
 
