@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-%define buildforkernels akmod
+%define buildforkernels current
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     11.11
-Release:     1%{?dist}.1
+Version:     12.9
+Release:     0.1.beta%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -77,7 +77,7 @@ done
 %build
 for kernel_version in %{?kernel_versions}; do
     pushd _kmod_build_${kernel_version%%___*}/lib/modules/fglrx/build_mod/2.6.x
-    make CC="gcc" PAGE_ATTR_FIX=0 \
+    make V=1 CC="gcc" PAGE_ATTR_FIX=0 \
       KVER="${kernel_version%%___*}" \
       KDIR="/usr/src/kernels/${kernel_version%%___*}"
     popd
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 01 2012 Leigh Scott <leigh123linux@googlemail.com> - 12.9-0.1.beta
+- Update to Catalyst 12.9 beta (internal version 9.00)
+
 * Tue Feb 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 11.11-1.1
 - Rebuild for UsrMove
 
