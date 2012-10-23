@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     12.9
-Release:     0.1.beta%{?dist}
+Version:     12.10
+Release:     1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 23 2012 Leigh Scott <leigh123linux@googlemail.com> - 12.10-1
+- Update to Catalyst 12.10 release (internal version 9.002)
+
 * Mon Oct 01 2012 Leigh Scott <leigh123linux@googlemail.com> - 12.9-0.1.beta
 - Update to Catalyst 12.9 beta (internal version 9.00)
 
