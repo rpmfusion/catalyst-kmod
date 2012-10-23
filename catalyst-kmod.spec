@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-%define buildforkernels newest
+%define buildforkernels current
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     12.8
-Release:     1%{?dist}.8
+Version:     12.10
+Release:     1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -22,7 +22,6 @@ URL:         http://ati.amd.com/support/drivers/linux/linux-radeon.html
 Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-data-%{version}.tar.bz2
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 Patch0:      compat_alloc-Makefile.patch
-Patch1:      3.5-do_mmap.patch
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # needed for plague to make sure it builds for i686
@@ -68,7 +67,6 @@ find fglrxpkg/lib/modules/fglrx/build_mod/ -type f -print0 | xargs -0 chmod 0644
 
 pushd fglrxpkg
 %patch0 -p0 -b.compat_alloc
-%patch1 -p0 -b.amd-3.5.0-missing_do_mmap
 popd
 
 for kernel_version  in %{?kernel_versions} ; do
@@ -99,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 23 2012 Leigh Scott <leigh123linux@googlemail.com> - 12.10-1
+- Update to Catalyst 12.10 release (internal version 9.002)
+
 * Thu Oct 18 2012 Nicolas Chauvet <kwizart@gmail.com> - 12.8-1.8
 - Rebuilt for updated kernel
 
