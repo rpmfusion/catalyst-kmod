@@ -7,7 +7,7 @@
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
-%global __debug_install_post %{_builddir}/%{?buildsubdir}/find-debuginfo.sh %{_builddir}/%{?buildsubdir}\
+%define __debug_install_post %{_builddir}/%{?buildsubdir}/find-debuginfo.sh %{_builddir}/%{?buildsubdir}\
 %{nil}
 %endif
 
