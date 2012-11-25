@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     12.11
-Release:     0.1.beta%{?dist}.1
+Release:     0.1.beta%{?dist}.2
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Nov 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 12.11-0.1.beta.2
+- Rebuilt for current f18 kernel
+
 * Sun Nov 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 12.11-0.1.beta.1
 - Rebuilt for Fedora 18 Beta kernel
 
