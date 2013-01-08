@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     12.11
-Release:     0.2.beta11%{?dist}.2
+Release:     0.3.beta11%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -22,6 +22,7 @@ URL:         http://ati.amd.com/support/drivers/linux/linux-radeon.html
 Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-data-%{version}.tar.bz2
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 Patch0:      compat_alloc-Makefile.patch
+Patch1:      3.7_kernel.patch
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # needed for plague to make sure it builds for i686
@@ -67,6 +68,7 @@ find fglrxpkg/lib/modules/fglrx/build_mod/ -type f -print0 | xargs -0 chmod 0644
 
 pushd fglrxpkg
 %patch0 -p0 -b.compat_alloc
+%patch1 -p0 -b.3.7_kernel
 popd
 
 for kernel_version  in %{?kernel_versions} ; do
@@ -97,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 08 2013 Leigh Scott <leigh123linux@googlemail.com> - 12.11-0.3.beta11
+- patched and rebuilt for 3.7 kernel
+
 * Thu Jan 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 12.11-0.2.beta11.2
 - Rebuilt for f18 final kernel
 
