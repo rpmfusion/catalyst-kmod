@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     12.10
-Release:     4%{?dist}.7
+Release:     4%{?dist}.8
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 18 2013 Nicolas Chauvet <kwizart@gmail.com> - 12.10-4.8
+- Rebuilt for kernel
+
 * Sat Apr 13 2013 Nicolas Chauvet <kwizart@gmail.com> - 12.10-4.7
 - Rebuilt for kernel
 
