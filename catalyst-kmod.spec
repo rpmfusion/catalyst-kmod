@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     11.11
-Release:     1%{?dist}.2
+Version:     13.4
+Release:     1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -77,7 +77,7 @@ done
 %build
 for kernel_version in %{?kernel_versions}; do
     pushd _kmod_build_${kernel_version%%___*}/lib/modules/fglrx/build_mod/2.6.x
-    make CC="gcc" PAGE_ATTR_FIX=0 \
+    make V=1 CC="gcc" PAGE_ATTR_FIX=0 \
       KVER="${kernel_version%%___*}" \
       KDIR="/usr/src/kernels/${kernel_version%%___*}"
     popd
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue May 14 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.4-1
+- Update to Catalyst 13.4 (internal version 12.104)
+
 * Tue May 14 2013 Nicolas Chauvet <kwizart@gmail.com> - 11.11-1.2
 - Rebuilt for kernel
 
