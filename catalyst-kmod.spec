@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     13.4
-Release:     1%{?dist}
+Release:     2%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -22,6 +22,8 @@ URL:         http://ati.amd.com/support/drivers/linux/linux-radeon.html
 Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-data-%{version}.tar.bz2
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 Patch0:      compat_alloc-Makefile.patch
+Patch1:      fglrx_fixing_ttys.patch
+Patch2:      fglrx_intel_iommu.patch
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # needed for plague to make sure it builds for i686
@@ -67,6 +69,8 @@ find fglrxpkg/lib/modules/fglrx/build_mod/ -type f -print0 | xargs -0 chmod 0644
 
 pushd fglrxpkg
 %patch0 -p0 -b.compat_alloc
+%patch1 -p0
+%patch2 -p0
 popd
 
 for kernel_version  in %{?kernel_versions} ; do
@@ -97,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed May 22 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.4-2
+- rebuilt
+
 * Tue May 14 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.4-1
 - Update to Catalyst 13.4 (internal version 12.104)
 
