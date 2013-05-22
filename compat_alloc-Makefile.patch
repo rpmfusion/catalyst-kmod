@@ -4,7 +4,7 @@
                  -DFGL_GART_RESERVED_SLOT \
                  -DFGL_LINUX253P1_VMA_API \
                  -DPAGE_ATTR_FIX=$(PAGE_ATTR_FIX) \
-+                -DCOMPAT_ALLOC_USER_SPACE=arch_compat_alloc_user_space \
++                -DCOMPAT_ALLOC_USER_SPACE=$(COMPAT_ALLOC_USER_SPACE) \
  
  ifeq ($(KERNELRELEASE),)
  # on first call from remote location we get into this path

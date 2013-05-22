@@ -102,7 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Wed May 22 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.4-2
-- rebuilt
+- Add patch to fix tty issue
+- Add patch to fix intel_iommu
 
 * Tue May 14 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.4-1
 - Update to Catalyst 13.4 (internal version 12.104)

@@ -1,0 +1,14 @@
+--- lib/modules/fglrx/build_mod/firegl_public.c
++++ lib/modules/fglrx/build_mod/firegl_public.c
+@@ -3088,7 +3156,11 @@
+ int ATI_API_CALL KCL_EFI_IS_ENABLED(void)
+ {
+ #ifdef CONFIG_EFI
++#ifdef EFI_BOOT
++    return efi_enabled(EFI_BOOT);
++#else
+     return efi_enabled;
++#endif
+ #else
+     return 0;
+ #endif
