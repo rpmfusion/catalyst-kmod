@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     13.4
-Release:     3%{?dist}
+Version:     13.6
+Release:     0.1.beta%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -99,6 +99,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+%changelog
+* Wed May 29 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.6-0.1.beta
+- Update to Catalyst 13.6beta  (internal version 13.101)
+
 * Thu May 23 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.4-3
 - drop intel_iommu patch
 
