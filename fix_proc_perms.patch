@@ -1,0 +1,11 @@
+--- lib/modules/fglrx/build_mod/firegl_public.c 2013-07-29 18:54:07.000000000 +0300
++++ lib/modules/fglrx/build_mod/firegl_public.c 2013-08-07 11:43:54.465936476 +0300
+@@ -821,7 +821,7 @@
+     KCL_DEBUG1(FN_FIREGL_PROC, "minor %d, proc_list 0x%08lx\n", minor, (unsigned long)proc_list);
+     if (!minor)
+     {
+-        root = KCL_create_proc_dir(NULL, "ati", S_IFDIR);
++        root = KCL_create_proc_dir(NULL, "ati", S_IFDIR|S_IRUGO|S_IXUGO);
+     }
+ 
+     if (!root)
