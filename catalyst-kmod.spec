@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-%define buildforkernels akmod
+%global buildforkernels current
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -12,8 +12,8 @@
 %endif
 
 Name:        catalyst-kmod
-Version:     11.11
-Release:     1%{?dist}.1
+Version:     13.8
+Release:     0.2.beta1%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -22,6 +22,7 @@ URL:         http://ati.amd.com/support/drivers/linux/linux-radeon.html
 Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-data-%{version}.tar.bz2
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 Patch0:      compat_alloc-Makefile.patch
+Patch1:      fix_proc_perms.patch
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # needed for plague to make sure it builds for i686
@@ -67,6 +68,7 @@ find fglrxpkg/lib/modules/fglrx/build_mod/ -type f -print0 | xargs -0 chmod 0644
 
 pushd fglrxpkg
 %patch0 -p0 -b.compat_alloc
+%patch1 -p0 -b.fix_proc_perms
 popd
 
 for kernel_version  in %{?kernel_versions} ; do
@@ -77,7 +79,7 @@ done
 %build
 for kernel_version in %{?kernel_versions}; do
     pushd _kmod_build_${kernel_version%%___*}/lib/modules/fglrx/build_mod/2.6.x
-    make CC="gcc" PAGE_ATTR_FIX=0 \
+    make V=1 CC="gcc" PAGE_ATTR_FIX=0 \
       KVER="${kernel_version%%___*}" \
       KDIR="/usr/src/kernels/${kernel_version%%___*}"
     popd
@@ -97,6 +99,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 07 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.8-0.2.beta1
+- fix proc perms
+
+* Sat Aug 03 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.8-0.1.beta1
+- Update to Catalyst 13.8beta1  (internal version 13.20.5)
+
 * Tue Feb 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 11.11-1.1
 - Rebuild for UsrMove
 
