@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     13.8
-Release:     0.3.beta2%{?dist}
+Release:     0.4.beta2%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Oct 02 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.8-0.4.beta2
+- rebuilt
+
 * Wed Sep 18 2013 Leigh Scott <leigh123linux@googlemail.com> - 13.8-0.3.beta2
 - Update to Catalyst 13.8beta1  (internal version 13.20.11)
 
