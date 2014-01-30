@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-%global buildforkernels newest
+%global buildforkernels current
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     13.9
-Release:     2%{?dist}.14
+Release:     3%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -23,6 +23,8 @@ Source0:     http://downloads.diffingo.com/rpmfusion/kmod-data/catalyst-kmod-dat
 Source11:    catalyst-kmodtool-excludekernel-filterfile
 Patch0:      compat_alloc-Makefile.patch
 Patch1:      fix_proc_perms.patch
+Patch2:      3.13_kernel_acpi_node.patch
+
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # needed for plague to make sure it builds for i686
@@ -69,6 +71,7 @@ find fglrxpkg/lib/modules/fglrx/build_mod/ -type f -print0 | xargs -0 chmod 0644
 pushd fglrxpkg
 %patch0 -p0 -b.compat_alloc
 %patch1 -p0 -b.fix_proc_perms
+%patch2 -p0 -b.3.13_kernel_acpi_node
 popd
 
 for kernel_version  in %{?kernel_versions} ; do
@@ -99,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 30 2014 Leigh Scott <leigh123linux@googlemail.com> - 13.9-3
+- patch for 3.13.0 kernel
+
 * Thu Jan 30 2014 Nicolas Chauvet <kwizart@gmail.com> - 13.9-2.14
 - Rebuilt for kernel
 
