@@ -3,7 +3,7 @@
 # "buildforkernels newest" macro for just that build; immediately after
 # queuing that build enable the macro again for subsequent builds; that way
 # a new akmod package will only get build when a new one is actually needed
-%global buildforkernels newest
+%global buildforkernels current
 
 # Tweak to have debuginfo - part 1/2
 %if 0%{?fedora} > 7
@@ -13,7 +13,7 @@
 
 Name:        catalyst-kmod
 Version:     13.9
-Release:     3%{?dist}.11
+Release:     4%{?dist}
 # Taken over by kmodtool
 Summary:     AMD display driver kernel module
 Group:       System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 24 2014 Leigh Scott <leigh123linux@googlemail.com> - 13.9-4
+- patch for 3.14 kernel
+
 * Wed Apr 16 2014 Nicolas Chauvet <kwizart@gmail.com> - 13.9-3.11
 - Rebuilt for kernel
 

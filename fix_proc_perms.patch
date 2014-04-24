@@ -49,7 +49,7 @@
  	return root;
 --- lib/modules/fglrx/build_mod/firegl_public.c
 +++ lib/modules/fglrx/build_mod/firegl_public.c
-@@ -520,13 +526,24 @@ READ_PROC_WRAP(firegl_lock_info)
+@@ -520,13 +520,24 @@ READ_PROC_WRAP(firegl_lock_info)
  #ifdef DEBUG
  READ_PROC_WRAP(drm_bq_info)
  #endif
@@ -74,7 +74,7 @@
      return firegl_debug_proc_write(file, buffer, count, data);     
  }
  
-@@ -543,9 +560,14 @@ static int firegl_debug_proc_write_wrap(
+@@ -543,9 +554,14 @@ static int firegl_debug_proc_write_wrap(
   *
   * \return number of bytes written
   */
@@ -89,7 +89,7 @@
      int len = 0;    // For ProcFS: fill buf from the beginning
  
      KCL_DEBUG1(FN_FIREGL_PROC, "offset %d\n", (int)offset);
-@@ -561,6 +583,9 @@ static int firegl_major_proc_read(char *
+@@ -561,6 +577,9 @@ static int firegl_major_proc_read(char *
  
      len = snprintf(buf, request, "%d\n", major);
  
@@ -99,7 +99,7 @@
      KCL_DEBUG1(FN_FIREGL_PROC, "return len=%i\n",len);
  
      return len;
-@@ -583,6 +608,29 @@ kcl_proc_list_t KCL_PROC_FileList[] =
+@@ -583,6 +602,29 @@ kcl_proc_list_t KCL_PROC_FileList[] =
      { "NULL",           NULL,                       NULL} // Terminate List!!!
  };
  
@@ -129,7 +129,7 @@
  static struct proc_dir_entry *firegl_proc_init( device_t *dev,
                                                  int minor,
                                                  struct proc_dir_entry *root,
-@@ -595,7 +643,11 @@ static struct proc_dir_entry *firegl_pro
+@@ -595,7 +637,11 @@ static struct proc_dir_entry *firegl_pro
      KCL_DEBUG1(FN_FIREGL_PROC, "minor %d, proc_list 0x%08lx\n", minor, (unsigned long)proc_list);
      if (!minor)
      {
@@ -141,7 +141,7 @@
      }
  
      if (!root)
-@@ -607,18 +659,28 @@ static struct proc_dir_entry *firegl_pro
+@@ -607,18 +653,28 @@ static struct proc_dir_entry *firegl_pro
      if (minor == 0)
      {
          // Global major debice number entry
@@ -170,7 +170,7 @@
      if (!*dev_root) {
          remove_proc_entry("major", root);
          remove_proc_entry("ati", NULL);
-@@ -628,7 +690,12 @@ static struct proc_dir_entry *firegl_pro
+@@ -628,7 +684,12 @@ static struct proc_dir_entry *firegl_pro
  
      while (list->f || list->fops)
      {
@@ -183,7 +183,7 @@
          if (!ent)
          {
              KCL_DEBUG_ERROR("Cannot create /proc/ati/%s/%s\n", name, list->name);
-@@ -646,6 +713,7 @@ static struct proc_dir_entry *firegl_pro
+@@ -646,6 +707,7 @@ static struct proc_dir_entry *firegl_pro
              return NULL;
          }
  
@@ -191,7 +191,7 @@
          if (list->f)
          {
              ent->read_proc = (read_proc_t*)list->f;
-@@ -659,19 +727,25 @@ static struct proc_dir_entry *firegl_pro
+@@ -659,19 +721,25 @@ static struct proc_dir_entry *firegl_pro
          {
              ent->data = (dev->pubdev.signature == FGL_DEVICE_SIGNATURE)? firegl_find_device(minor) : (dev);
          }
@@ -218,7 +218,7 @@
          }
      }
  
-@@ -1610,11 +1610,17 @@ KCL_TYPE_Pid ATI_API_CALL KCL_GetTgid(vo
+@@ -1542,11 +1610,21 @@ KCL_TYPE_Pid ATI_API_CALL KCL_GetTgid(vo
   */
  KCL_TYPE_Uid ATI_API_CALL KCL_GetEffectiveUid(void)
  {
@@ -227,7 +227,11 @@
 +#else
 +
  #ifdef current_euid
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0)
++    return __kuid_val(current_euid());
++#else
      return current_euid();
++#endif
  #else
      return current->euid;
  #endif
@@ -236,7 +240,7 @@
  }
  
  /** /brief Delay execution for the specified number of microseconds
-@@ -6148,10 +6222,17 @@ void * KCL_create_proc_dir(void *root_di
+@@ -6148,10 +6226,17 @@ void * KCL_create_proc_dir(void *root_di
      struct proc_dir_entry *dir = NULL;
  
      if (root_dir == NULL)
@@ -255,7 +259,7 @@
      return dir;
  }
  
-@@ -6180,13 +6261,18 @@ void KCL_create_proc_entry(void *root_di
+@@ -6180,13 +6265,18 @@ void KCL_create_proc_entry(void *root_di
      if (root_dir == NULL || name == NULL)
          return;
  
